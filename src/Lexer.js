@@ -47,9 +47,10 @@ class Lexer {
         return Token('SEPARATOR', ':')
       }
 
-      if (this.current === '=') {
+      if (['=', '>', '<'].includes(this.current)) {
+        const operator = this.current
         this.advance()
-        return Token('OP', '=')
+        return Token('OP', operator)
       }
 
       if (this.peek(2) === '!=') {
@@ -74,7 +75,7 @@ class Lexer {
       break
     }
 
-    return Token('EOF')
+    return Token('EOF', undefined)
   }
   
   /**
